@@ -14,7 +14,7 @@ import {
 
 import { octree as d3Octree } from 'd3-octree';
 
-import { emptyObject } from "./utils/gc.js";
+import { deallocate } from './utils/gc.js';
 import { deg2Rad, polar2Cartesian, cartesian2Polar } from './utils/coordTranslate.js';
 import { convertMercatorUV } from './utils/mercator.js';
 import genTiles, { findTileXY } from './utils/tileGenerator.js';
@@ -95,7 +95,7 @@ export default class ThreeSlippyMapGlobe extends Group {
         this.#tilesMeta[l] && this.#tilesMeta[l].forEach(d => {
           if (d.obj) {
             this.remove(d.obj);
-            emptyObject(d.obj);
+            deallocate(d.obj);
             delete d.obj;
           }
         });
@@ -153,7 +153,7 @@ export default class ThreeSlippyMapGlobe extends Group {
       l.forEach(d => {
         if (d.obj) {
           this.remove(d.obj);
-          emptyObject(d.obj);
+          deallocate(d.obj);
           delete d.obj;
         }
       });
